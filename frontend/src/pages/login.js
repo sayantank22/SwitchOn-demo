@@ -44,7 +44,7 @@ const Login = ({ history, isAuthenticated }) => {
       <Grid item sm style={{ textAlign: 'center' }}>
         <br />
         <Typography variant='h3' className='pageTitle'>
-          Login
+          SwitchOn
         </Typography>
         <form noValidate onSubmit={submitHandler}>
           <TextField
@@ -79,7 +79,7 @@ const Login = ({ history, isAuthenticated }) => {
             color='primary'
             className='button'
             disabled={loading}>
-            SwitchOn
+            Login
             {loading && <CircularProgress size={30} className='progress' />}
           </Button>
         </form>
