@@ -46,76 +46,6 @@ export default function Pending({
   const userLogin = useSelector((state) => state.userLogin);
   const { loading, userCred } = userLogin;
 
-  const acceptHandler = (id) => {
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${userCred.token}`,
-      },
-    };
-
-    console.log(userCred._id);
-
-    axios
-      .put(
-        `/api/requests/${id}`,
-        { createdBy: userCred.name, isApproved: true },
-        config
-      )
-      .then((res) => {
-        // setNotificationCount(notificationCount + 1);
-        // console.log(res.data);
-        // setFormError('');
-        // setSuccessAlert(true);
-        // setDepartments([...res.data.data.departments]);
-      })
-      .catch((error) => {
-        console.log(error.response.data.message);
-        // setSuccessAlert(false);
-        // setFormError(
-        //   error.response.data.message ===
-        //     `Cannot read property 'department' of null`
-        //     ? 'Please select the user and department field'
-        //     : error.response.data.message
-        // );
-      });
-    setNotificationCount(notificationCount + 1);
-  };
-
-  const rejectHandler = (id) => {
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${userCred.token}`,
-      },
-    };
-
-    axios
-      .put(
-        `/api/requests/${id}`,
-        { createdFor: userCred.name, isRejected: true },
-        config
-      )
-      .then((res) => {
-        // setNotificationCount(notificationCount + 1);
-        // console.log(res.data);
-        // setFormError('');
-        // setSuccessAlert(true);
-        // setDepartments([...res.data.data.departments]);
-      })
-      .catch((error) => {
-        console.log(error.response.data.message);
-        // setSuccessAlert(false);
-        // setFormError(
-        //   error.response.data.message ===
-        //     `Cannot read property 'department' of null`
-        //     ? 'Please select the user and department field'
-        //     : error.response.data.message
-        // );
-      });
-    setNotificationCount(notificationCount + 1);
-  };
-
   useEffect(() => {
     if (userCred) {
       const config = {
@@ -141,6 +71,74 @@ export default function Pending({
       history.push('/login');
     }
   }, [history, userCred]);
+
+  const acceptHandler = (id) => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userCred.token}`,
+      },
+    };
+
+    axios
+      .put(
+        `/api/requests/${id}`,
+        { createdBy: userCred.name, isApproved: true },
+        config
+      )
+      .then((res) => {})
+      .catch((error) => {
+        console.log(error.response.data.message);
+      });
+    setNotificationCount(notificationCount + 1);
+
+    axios
+      .get('/api/requests', config)
+      .then((res) => {
+        const filteredRequests = res.data.data.requests.filter(
+          (req) => req.isPending === true
+        );
+        setRequests([...filteredRequests]);
+      })
+      .catch((error) => {
+        console.log(error);
+        // setError('Invalid email or password');
+      });
+  };
+
+  const rejectHandler = (id) => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userCred.token}`,
+      },
+    };
+
+    axios
+      .put(
+        `/api/requests/${id}`,
+        { createdFor: userCred.name, isRejected: true },
+        config
+      )
+      .then((res) => {})
+      .catch((error) => {
+        console.log(error.response.data.message);
+      });
+    setNotificationCount(notificationCount + 1);
+
+    axios
+      .get('/api/requests', config)
+      .then((res) => {
+        const filteredRequests = res.data.data.requests.filter(
+          (req) => req.isPending === true
+        );
+        setRequests([...filteredRequests]);
+      })
+      .catch((error) => {
+        console.log(error);
+        // setError('Invalid email or password');
+      });
+  };
 
   return (
     <TableContainer component={Paper}>
