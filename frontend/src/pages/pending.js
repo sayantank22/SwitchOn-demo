@@ -10,6 +10,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
+import { withRouter } from 'react-router-dom';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -35,11 +36,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Pending({
-  history,
-  notificationCount,
-  setNotificationCount,
-}) {
+const Pending = ({ history, notificationCount, setNotificationCount }) => {
   const classes = useStyles();
   const [requests, setRequests] = useState([]);
 
@@ -201,4 +198,6 @@ export default function Pending({
       </Table>
     </TableContainer>
   );
-}
+};
+
+export default withRouter(Pending);

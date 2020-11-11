@@ -10,6 +10,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import CancelIcon from '@material-ui/icons/Cancel';
+import { withRouter } from 'react-router-dom';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -35,7 +36,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Pending({ history }) {
+const Rejected = ({ history }) => {
   const classes = useStyles();
   const [requests, setRequests] = useState([]);
 
@@ -112,4 +113,6 @@ export default function Pending({ history }) {
       </Table>
     </TableContainer>
   );
-}
+};
+
+export default withRouter(Rejected);
