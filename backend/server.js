@@ -21,8 +21,6 @@ app.use('/api/users', userRoutes);
 app.use('/api/departments', departmentRoutes);
 app.use('/api/requests', requestRoutes);
 
-const __dirname = path.resolve();
-
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, 'frontend/build')));
 
