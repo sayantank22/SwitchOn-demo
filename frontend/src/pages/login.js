@@ -79,7 +79,7 @@ const Login = ({ history, isAuthenticated }) => {
             color='primary'
             className='button'
             disabled={loading}>
-            Login
+            SwitchOn
             {loading && <CircularProgress size={30} className='progress' />}
           </Button>
         </form>
